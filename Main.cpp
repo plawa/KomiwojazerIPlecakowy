@@ -1,10 +1,8 @@
 #include "stdafx.h"
-#include "Sdizo2.h"
+#include "Sdizo3.h"
 
 void main(){
-	Sdizo2 projekt;
+	Sdizo3 projekt;
 	projekt.menu();
 	return;
 }
-
-//skonczy³em na implementacji listowej reprezentacji grafu, do zrobienia ona i algorytm Prima
