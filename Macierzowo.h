@@ -28,9 +28,9 @@ private:
 	uint *wynik;									//tablica z rozwi¹zaniem problemu komiwoja¿era
 	uint *tempSciezka;								//tymczasowa sciezka, pomocnicza przy wyszukiwaniu cyklu Hamiltona
 	bool *odwiedzone;								//tablica zawieraj¹ca informacje które wierzcho³ki zosta³y ju¿ odwiedzone
+	bool znalezionoCykl;							//zawiera informacjê, czy problem zosta³ rozwiazany i czy znaleziono w nim choæ jeden cykl Hamiltona
 	uint v0;										//wierzcho³ek pocz¹tkowy
-	uint odleglosc;									//suma wag najkrótszego cyklu Hamiltona
+	uint odleglosc;									//suma wag najkrótszego cyklu Hamiltona znalezionego podczas rozwi¹zywania problemu komiwoja¿era
 	uint tempOdleg;									//suma wag obecnie rozpatrywanego cyklu Hamiltona
-	uint sptr;										//
-	uint shptr;										//
+	uint wsk;									//przechowuje numer wierzcho³ka, z którego ostatnio wyszukiwano cykl
 };

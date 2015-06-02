@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Macierzowo.h"
+#include "Plecak.h"
 
 class Sdizo3 {
 public:
@@ -14,5 +15,6 @@ private:
 	void problemPlecakowy();
 	void problemKomiwojazera();
 	Macierzowo komiwojazer;
+	Plecak plecak;
 	PomiarCzasu timer;
 };

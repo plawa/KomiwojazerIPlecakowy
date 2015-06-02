@@ -14,7 +14,7 @@
 		"\nPodaj wybor: "
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//									**** FUNKCJE UCHWYTU INTERFEJSU *****
+//										**** FUNKCJE INTERFEJSU *****
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Sdizo3::wyswietlGraf(){
@@ -37,9 +37,8 @@ void Sdizo3::wczytajPlecak(){
 	char nazwa[30];
 	printf("Podaj nazwe pliku tekstowego z ktorego chcesz wczytac elementy plecaka: ");
 	scanf("%s", &nazwa);
-	// ????????
-	if (komiwojazer.wczytajZPliku(nazwa))
-		; //	???????
+	if (plecak.wczytajZPliku(nazwa))
+		plecak.wyswietlPrzedmioty();
 	else
 		printf("Blad odczytu! Podano nieprawidlowa nazwe, badz jego struktura zawiera bledy.\n");
 }
@@ -55,7 +54,13 @@ void Sdizo3::generujGraf(){
 }
 
 void Sdizo3::generujPlecak(){
-	; // ?????	??????	????d
+	uint iloscPrzedm = 0;
+	printf("Podaj ilosc przedmiotow do wygenerowania: ");
+	scanf_s("%d", &iloscPrzedm);
+	if (plecak.generujPrzedmioty(iloscPrzedm))
+		plecak.wyswietlPrzedmioty();
+	else
+		printf("Wystapil blad!\n");
 }
 
 void Sdizo3::problemKomiwojazera(){
@@ -64,13 +69,15 @@ void Sdizo3::problemKomiwojazera(){
 }
 
 void Sdizo3::problemPlecakowy(){
-	; // ??? ? ?? ? ??
+	plecak.problemPlecakowy();
+	plecak.wyswietlPlecak();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //												**** MAIN ****
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Sdizo3::menu() {
+	srand((size_t)time(NULL)); //na potrzeby u¿ywania funkcji rand()
 	unsigned char problem, operacja;
 	do { 
 		printf(ZAPYTAJ_O_PROBLEM);

@@ -8,7 +8,8 @@
 //---------------------------------------------------------------------------
 Macierzowo::Macierzowo(){
 	pierwszeWczytywanie = true;
-	srand((size_t)time(NULL)); //na potrzeby u¿ywania funkcji rand()
+	znalezionoCykl = false;
+	
 }
 
 //Destruktor, wywo³uje funkcjê "usunGraf()"
@@ -24,19 +25,18 @@ void Macierzowo::problemKomiwojazera(){
 	odwiedzone = new bool[n];
 	for (uint i = 0; i < n; i++)
 		odwiedzone[i] = false;
-	sptr = shptr = 0;
-	odleglosc = UINT_MAX;	//przypisanie maksymalnej mo¿liwej wartoœci, aby pierwsza znaleziona odleglosc zosta³a przypisana
-	tempOdleg = v0 = 0;
-	KomiRekur(v0);		//start rekurencyjnego algorytmu
+	odleglosc = UINT_MAX;						//przypisanie maksymalnej mo¿liwej wartoœci, aby pierwsza znaleziona odleglosc zosta³a przypisana
+	tempOdleg = wsk = v0 = 0;
+	KomiRekur(v0);								//start rekurencyjnego algorytmu
 }
 
 void Macierzowo::wyswietlRozwiazanie(){
-	if (sptr) {
-		cout << endl << "Najkrotsza odleglosc to: ";
-		for (uint i = 0; i < sptr; i++)
-			cout << wynik[i] << " ";
+	if (znalezionoCykl){
+		cout << endl << "Najkrotsza droga to: ";
+		for (uint i = 0; i < n; i++)
+			cout << wynik[i] << " -> ";
 		cout << v0 << endl;
-		cout << "odleglosc wynosi = " << odleglosc << endl;
+		cout << "Jej odleglosc wynosi " << odleglosc << endl;
 	}
 	else 
 		cout << "We wczytanym grafie nie znaleziono cyklu Hamiltona!" << endl;
@@ -46,8 +46,8 @@ void Macierzowo::wyswietlRozwiazanie(){
 //*** ALGORYTM REKURENCYJNY ROZWI¥ZUJ¥CY PROBLEM KOMIWOJA¯ERA ***
 //***************************************************************
 void Macierzowo::KomiRekur(uint v){
-	tempSciezka[shptr++] = v;					//zapamiêtujemy w tablicy wierzcho³ek przez który aktualnie bêdziemy przechodziæ
-	if (shptr < n){								//jeœli nie jest to jeszcze cykl Hamiltona (nie ³¹czy wszystkich wierzch.), to kontynuujemy poszukiwania
+	tempSciezka[wsk++] = v;						//zapamiêtujemy w tablicy wierzcho³ek przez który aktualnie bêdziemy przechodziæ
+	if (wsk < n){								//jeœli nie jest to jeszcze cykl Hamiltona (nie ³¹czy wszystkich wierzch.), to kontynuujemy poszukiwania
 		odwiedzone[v] = true;					//oznaczamy bie¿¹cy wierzcho³ek jako odwiedzony
 		for (uint i = 0; i < n; i++)			//przegl¹damy s¹siadów obecnego wierzcho³ka
 			if (graf[v][i] && !odwiedzone[i]){	//jeœli krawêdŸ istnieje i s¹siad nie zosta³ jeszcze odwiedzony, to
@@ -61,13 +61,13 @@ void Macierzowo::KomiRekur(uint v){
 		tempOdleg += graf[v][v0];				//dodajemy jeszcze wartoœæ powrotu do wierzcho³ka pocz¹tkowego
 		if (tempOdleg < odleglosc){				//jeœli wyszukany cykl reprezentuje najkrótsz¹, znalezion¹ do tej pory drogê, to
 			odleglosc = tempOdleg;				//przypisujemy now¹, krótsz¹ wartoœæ drogi do odleg³oœci koñcowej
-			for (uint i = 0; i < shptr; i++)	//przypisujemy do wyniku koñcowego wierzcho³ek po wierzcho³ku wyszukan¹ najkrótsz¹ drog¹
+			for (uint i = 0; i < wsk; i++)		//przypisujemy do wyniku koñcowego wierzcho³ek po wierzcho³ku wyszukan¹ najkrótsz¹ drog¹
 				wynik[i] = tempSciezka[i];
-			sptr = shptr;
+			znalezionoCykl = true;;
 		}
 		tempOdleg -= graf[v][v0];				//przywracamy poprzedni¹ wartoœæ odleg³oœci, by rozwa¿yæ pozosta³e mo¿liwe œcie¿nki z poprzedniego miasta
 	}
-	shptr--;									//cofamy siê o wierzcho³ek wstecz, by rozwa¿yæ pozosta³e mo¿liwe œcie¿ki z poprzedniego miasta
+	wsk--;										//cofamy siê o wierzcho³ek wstecz, by rozwa¿yæ pozosta³e mo¿liwe œcie¿ki z poprzedniego miasta
 }
 
 bool Macierzowo::utworzGraf(uint iloscWierzcholkow){
