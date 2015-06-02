@@ -19,7 +19,7 @@
 
 void Sdizo3::wyswietlGraf(){
 	printf("\n");
-	macierzowo.wyswietl();
+	komiwojazer.wyswietl();
 	printf("\n");
 }
 
@@ -27,7 +27,7 @@ void Sdizo3::wczytajGraf(){
 	char nazwa[30];
 	printf("Podaj nazwe pliku tekstowego z ktorego chcesz wczytac graf: ");
 	scanf("%s", &nazwa);
-	if (macierzowo.wczytajZPliku(nazwa))
+	if (komiwojazer.wczytajZPliku(nazwa))
 			wyswietlGraf();
 	else
 		printf("Blad odczytu! Podano nieprawidlowa nazwe, badz jego struktura zawiera bledy.\n");
@@ -38,7 +38,7 @@ void Sdizo3::wczytajPlecak(){
 	printf("Podaj nazwe pliku tekstowego z ktorego chcesz wczytac elementy plecaka: ");
 	scanf("%s", &nazwa);
 	// ????????
-	if (macierzowo.wczytajZPliku(nazwa))
+	if (komiwojazer.wczytajZPliku(nazwa))
 		; //	???????
 	else
 		printf("Blad odczytu! Podano nieprawidlowa nazwe, badz jego struktura zawiera bledy.\n");
@@ -48,18 +48,19 @@ void Sdizo3::generujGraf(){
 	int iloscWierzch, gestosc;
 	printf("\nPodaj ilosc wierzcholkow i gestosc grafu (w procentach) do wygenerowania: ");
 	scanf_s("%d %d", &iloscWierzch, &gestosc);
-	if (macierzowo.generujLosowoNieskierowany(iloscWierzch, gestosc))
+	if (komiwojazer.generujLosowoNieskierowany(iloscWierzch, gestosc))
 		wyswietlGraf();
 	else
 		printf("Wystapil blad podczas generowania grafu! Czy podana zostala poprawna gestosc\ngrafu (zapewniajaca jego spojnosc)?\n");
 }
 
 void Sdizo3::generujPlecak(){
-	; // ?????	??????	????
+	; // ?????	??????	????d
 }
 
 void Sdizo3::problemKomiwojazera(){
-	
+	komiwojazer.problemKomiwojazera();
+	komiwojazer.wyswietlRozwiazanie();
 }
 
 void Sdizo3::problemPlecakowy(){

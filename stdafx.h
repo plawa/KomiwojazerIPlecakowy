@@ -10,5 +10,9 @@
 #include <tchar.h>
 #include <Windows.h>
 #include <time.h>
+#include <fstream>
+#include <iostream>
+
+using namespace std;
 
 #include "PomiarCzasu.h"

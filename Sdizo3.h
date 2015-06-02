@@ -13,6 +13,6 @@ private:
 	void generujPlecak();
 	void problemPlecakowy();
 	void problemKomiwojazera();
-	Macierzowo macierzowo;
+	Macierzowo komiwojazer;
 	PomiarCzasu timer;
 };
