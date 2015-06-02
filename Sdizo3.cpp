@@ -45,10 +45,10 @@ void Sdizo3::wczytajPlecak(){
 }
 
 void Sdizo3::generujGraf(){
-	int iloscWierzch, gestosc;
-	printf("\nPodaj ilosc wierzcholkow i gestosc grafu (w procentach) do wygenerowania: ");
-	scanf_s("%d %d", &iloscWierzch, &gestosc);
-	if (komiwojazer.generujLosowoNieskierowany(iloscWierzch, gestosc))
+	uint iloscWierzch;
+	printf("\nPodaj ilosc wierzcholkow grafu do wygenerowania: ");
+	scanf_s("%d", &iloscWierzch);
+	if (komiwojazer.generujLosowo(iloscWierzch))
 		wyswietlGraf();
 	else
 		printf("Wystapil blad podczas generowania grafu! Czy podana zostala poprawna gestosc\ngrafu (zapewniajaca jego spojnosc)?\n");
