@@ -12,6 +12,8 @@
 #include <time.h>
 #include <fstream>
 #include <iostream>
+#include <queue>
+#include <list>
 
 using namespace std;
 

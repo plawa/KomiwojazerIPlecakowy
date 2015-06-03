@@ -9,9 +9,8 @@
 		"\nPodaj wybor: "
 #define ZAPYTAJ_O_OPERACJE "\n0. Wyjscie z programu\n"\
 		"1. Wczytaj z pliku\n"\
-		"2. Wygeneruj graf losowo\n"\
-		"3. Przeglad zupelny\n"\
-		"\nPodaj wybor: "
+		"2. Wygeneruj graf losowo\n"
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //										**** FUNKCJE INTERFEJSU *****
@@ -37,8 +36,8 @@ void Sdizo3::wczytajPlecak(){
 	char nazwa[30];
 	printf("Podaj nazwe pliku tekstowego z ktorego chcesz wczytac elementy plecaka: ");
 	scanf("%s", &nazwa);
-	if (plecak.wczytajZPliku(nazwa))
-		plecak.wyswietlPrzedmioty();
+	if (plecak.wczytajZPliku(nazwa))		//jeœli wczytywanie siê powiedzie
+		return;								//to zakoñcz dzia³anie funkcji
 	else
 		printf("Blad odczytu! Podano nieprawidlowa nazwe, badz jego struktura zawiera bledy.\n");
 }
@@ -54,11 +53,11 @@ void Sdizo3::generujGraf(){
 }
 
 void Sdizo3::generujPlecak(){
-	uint iloscPrzedm = 0;
+	uint iloscPrzedm;
 	printf("Podaj ilosc przedmiotow do wygenerowania: ");
 	scanf_s("%d", &iloscPrzedm);
 	if (plecak.generujPrzedmioty(iloscPrzedm))
-		plecak.wyswietlPrzedmioty();
+		return;
 	else
 		printf("Wystapil blad!\n");
 }
@@ -88,7 +87,8 @@ void Sdizo3::menu() {
 	while (true){
 		switch (problem){
 		case 1:
-			printf(ZAPYTAJ_O_OPERACJE); scanf_s("%d", &operacja);
+			printf(ZAPYTAJ_O_OPERACJE "3. Przeglad zupelny\n\nPodaj wybor: ");
+			scanf_s("%d", &operacja);
 			//*********************
 			switch (operacja){
 			case 1:
@@ -107,7 +107,8 @@ void Sdizo3::menu() {
 			break;
 
 		case 2:
-			printf(ZAPYTAJ_O_OPERACJE); scanf_s("%d", &operacja);
+			printf(ZAPYTAJ_O_OPERACJE "3. Algorytm zachlanny\n\nPodaj wybor: ");
+			scanf_s("%d", &operacja);
 			//**********************
 			switch (operacja){
 			case 1:
