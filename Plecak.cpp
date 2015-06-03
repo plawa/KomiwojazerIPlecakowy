@@ -30,11 +30,21 @@ uint Plecak::plecakRekur(uint dostepneMiejsce, uint n)
 	else {
 		wPlecaku[n] = true;
 		//zwraca maksymaln¹ mo¿liw¹ (niewykraczaj¹c¹ poza rozmiar plecaka) wartoœæ - pierwsza z elementem, lub druga bez niego
-		return max(wartosc[n - 1] + plecakRekur(dostepneMiejsce - rozmiar[n - 1], n - 1), plecakRekur(dostepneMiejsce, n - 1));
+		uint pierwsza = (wartosc[n - 1] + plecakRekur(dostepneMiejsce - rozmiar[n - 1], n - 1));
+		uint druga = plecakRekur(dostepneMiejsce, n - 1);
+		if (pierwsza > druga){
+			wPlecaku[n - 1] = true;
+			return pierwsza;
+		}
+		else {
+			wPlecaku[n - 1] = false;
+			return druga;
+		}
 	}
 }
 
 void Plecak::wyswietlPrzedmioty(){
+	cout << "pojemnosc plecaka wynosi: " << pojemnosc << endl << endl;
 	cout << "element: ";
 	for (uint i = 0; i < n; i++)
 		cout << i << " ";
@@ -48,18 +58,18 @@ void Plecak::wyswietlPrzedmioty(){
 }
 
 void Plecak::wyswietlPlecak(){
-	//cout << "element: ";
-	//for (uint i = 0; i < n; i++)
-	//	if (wPlecaku[i])
-	//		cout << i << " ";
-	//cout << endl << "rozmiar: ";
-	//for (uint i = 0; i < n; i++)
-	//	if (wPlecaku[i])
-	//		cout << rozmiar[i] << " ";
-	//cout << endl << "wartosc: ";
-	//for (uint i = 0; i < n; i++)
-	//	if (wPlecaku[i])
-	//		cout << wartosc[i] << " ";
+	cout << "element: ";
+	for (uint i = 0; i < n; i++)
+		if (wPlecaku[i])
+			cout << i << " ";
+	cout << endl << "rozmiar: ";
+	for (uint i = 0; i < n; i++)
+		if (wPlecaku[i])
+			cout << rozmiar[i] << " ";
+	cout << endl << "wartosc: ";
+	for (uint i = 0; i < n; i++)
+		if (wPlecaku[i])
+			cout << wartosc[i] << " ";
 	cout << endl << endl << "Waszystkie przedmioty w plecaku warte sa " << wartoscWPlecaku << endl;
 }
 
