@@ -8,7 +8,7 @@ struct przedmiot{
 
 	uint rozmiar, wartosc;
 };
-struct porownajPrzedmioty{
+struct porownajPrzedmiotyIloraz{
 	//porównuje przedmioty malej¹co po stosunku wartoœci do rozmiaru
 	bool operator() (const przedmiot &przedmiot1, const przedmiot &przedmiot2){
 		if (static_cast<double>(przedmiot1.wartosc) / static_cast<double>(przedmiot1.rozmiar) < 
@@ -17,21 +17,33 @@ struct porownajPrzedmioty{
 		else return false;
 	}
 };
-typedef priority_queue<przedmiot, vector<przedmiot>, porownajPrzedmioty> KolejkaPrzedm;
+typedef priority_queue<przedmiot, vector<przedmiot>, porownajPrzedmiotyIloraz> KolejkaPrzedmIl;
+
+struct porownajPrzedmiotyWartosc{
+	//porównuje przedmioty malej¹co po wartoœciach
+	bool operator() (const przedmiot &przedmiot1, const przedmiot &przedmiot2){
+		if (przedmiot1.wartosc < przedmiot2.wartosc)
+			return true;
+		else return false;
+	}
+};
+typedef priority_queue<przedmiot, vector<przedmiot>, porownajPrzedmiotyWartosc> KolejkaPrzedmWar;
 
 class Plecak
 {
 public:
 	Plecak();
 	~Plecak();
-	bool problemPlecakowy();
+	bool problemPlecakowyIl();
+	bool problemPlecakowyWar();
 	void wyswietlPlecak();
-	bool generujPrzedmioty(uint iloscPrzedmiotow);
+	bool generujPrzedmioty(uint iloscPrzedmiotow, uint pojemnoscPlecaka);
 	bool wczytajZPliku(const char[]);
 private:
 	uint plecakRekur(uint dostepneMiejsce, uint n);
 	void wyczysc();
-	KolejkaPrzedm przedmioty;
+	KolejkaPrzedmIl przedmiotyIl;
+	KolejkaPrzedmWar przedmiotyWar;
 	list<przedmiot> plecak;
 	uint wartoscWPlecaku;
 	uint pojemnosc;									//pojemnoœæ plecaka

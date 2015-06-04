@@ -14,7 +14,11 @@ private:
 	void generujPlecak();
 	void problemPlecakowy();
 	void problemKomiwojazera();
+
+	void badajPlecakowy(uint N, uint B);
+	void eksperyment();
 	Macierzowo komiwojazer;
 	Plecak plecak;
 	PomiarCzasu timer;
+	ofstream wyjscie;
 };

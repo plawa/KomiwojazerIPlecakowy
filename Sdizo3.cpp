@@ -5,6 +5,7 @@
 #define ZAPYTAJ_O_PROBLEM "Ktory problem chcesz rozwiazac?\n"\
 		"1. Asymetryczny problem komiwojazera\n"\
 		"2. Dyskretny problem plecakowy\n"\
+		"3. Wykonaj test (wyniki w wyniki.txt)\n"\
 		"0. Wyjscie\n"\
 		"\nPodaj wybor: "
 #define ZAPYTAJ_O_OPERACJE "\n0. Wyjscie z programu\n"\
@@ -53,22 +54,28 @@ void Sdizo3::generujGraf(){
 }
 
 void Sdizo3::generujPlecak(){
-	uint iloscPrzedm;
-	printf("Podaj ilosc przedmiotow do wygenerowania: ");
-	scanf_s("%d", &iloscPrzedm);
-	if (plecak.generujPrzedmioty(iloscPrzedm))
+	uint iloscPrzedm, poj;
+	printf("Podaj ilosc przedmiotow do wygenerowania i pojemnosc plecaka: ");
+	scanf_s("%d %d", &iloscPrzedm, &poj);
+	if (plecak.generujPrzedmioty(iloscPrzedm, poj))
 		return;
 	else
 		printf("Wystapil blad!\n");
 }
 
 void Sdizo3::problemKomiwojazera(){
+	timer.startTimer();
 	komiwojazer.problemKomiwojazera();
+	cout << "czas: " << timer.getTimer() << endl;
 	komiwojazer.wyswietlRozwiazanie();
 }
 
 void Sdizo3::problemPlecakowy(){
-	plecak.problemPlecakowy();
+	plecak.problemPlecakowyIl();
+	cout << endl << "Kryterium: stosunek wartosci do rozmiaru";
+	plecak.wyswietlPlecak();
+	plecak.problemPlecakowyWar();
+	cout << endl << "Kryterium: wartosc";
 	plecak.wyswietlPlecak();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,8 +132,8 @@ void Sdizo3::menu() {
 			default: printf(BLEDNY_NUMER);
 			} //*******************
 			break;
-		//case 3:
-		//	eksperyment();
+		case 3:
+			eksperyment();
 		case 0:
 			exit(1);
 		default:
@@ -134,4 +141,47 @@ void Sdizo3::menu() {
 		}
 		fflush(stdin);
 	}
+}
+
+void Sdizo3::badajPlecakowy(uint N, uint B){
+	double czas = 0.0;
+	wyjscie << N << " " << B << " ";
+	for (uint i = 0; i < 100; i++){
+		plecak.generujPrzedmioty(N, B);
+		timer.startTimer();
+		plecak.problemPlecakowyIl();
+		czas += timer.getTimer();
+	}
+	wyjscie << czas/100.0 << endl;
+}
+
+void Sdizo3::eksperyment(){
+	wyjscie.open("wyniki.txt");
+	if ( ! wyjscie.is_open()){
+		cout << "Blad! Nie mozna otworzyc pliku do zapisu.";
+		return;
+	}
+	cout << endl << "Prosze czekac. Gdy eksperyment zostanie wykonany, program zakonczy dzialanie."
+		<< endl << "Wyniki zapisane zostana w pliku \"wyniki.txt\".";
+
+	//wartoœci N: 625 1250 1875 2500 3125
+	//wartoœci B: 125 250 375
+
+	badajPlecakowy(625, 125);
+	badajPlecakowy(625, 250);
+	badajPlecakowy(625, 375);
+	badajPlecakowy(1250, 125);
+	badajPlecakowy(1250, 250);
+	badajPlecakowy(1250, 375);
+	badajPlecakowy(1875, 125);
+	badajPlecakowy(1875, 250);
+	badajPlecakowy(1875, 375);
+	badajPlecakowy(2500, 125);
+	badajPlecakowy(2500, 250);
+	badajPlecakowy(2500, 375);
+	badajPlecakowy(3125, 125);
+	badajPlecakowy(3125, 250);
+	badajPlecakowy(3125, 375);
+
+	wyjscie.close();
 }
